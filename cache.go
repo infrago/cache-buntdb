@@ -21,7 +21,6 @@ var (
 
 type (
 	buntdbDriver struct {
-		store string
 	}
 	buntdbConnect struct {
 		mutex sync.RWMutex
@@ -41,7 +40,7 @@ type (
 func (driver *buntdbDriver) Connect(name string, config cache.Config) (cache.Connect, error) {
 	//获取配置信息
 	setting := buntdbSetting{
-		Store: driver.store,
+		Store: "store/cache.db",
 	}
 
 	//创建目录，如果不存在
