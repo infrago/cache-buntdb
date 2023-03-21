@@ -2,6 +2,7 @@ package cache_buntdb
 
 import (
 	"github.com/infrago/cache"
+	"github.com/infrago/infra"
 )
 
 func Driver() cache.Driver {
@@ -9,6 +10,5 @@ func Driver() cache.Driver {
 }
 
 func init() {
-	cache.Register("buntdb", Driver())
-	// cache.Register("memory", Driver(":memory:"))
+	infra.Register("buntdb", Driver())
 }
