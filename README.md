@@ -1,2 +1,2 @@
 # cache-buntdb
-infra.go buntdb cache driver.
+infra.Go buntdb cache driver.
