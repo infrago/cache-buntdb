@@ -25,9 +25,11 @@ type (
 	buntdbConnect struct {
 		mutex sync.RWMutex
 
-		name    string
-		config  cache.Config
-		setting buntdbSetting
+		name   string
+		config cache.Config
+
+		instance *cache.Instance
+		setting  buntdbSetting
 
 		db *buntdb.DB
 	}
@@ -37,7 +39,7 @@ type (
 )
 
 // 连接
-func (driver *buntdbDriver) Connect(name string, config cache.Config) (cache.Connect, error) {
+func (driver *buntdbDriver) Connect(inst *cache.Instance) (cache.Connect, error) {
 	//获取配置信息
 	setting := buntdbSetting{
 		Store: "store/cache.db",
@@ -50,15 +52,15 @@ func (driver *buntdbDriver) Connect(name string, config cache.Config) (cache.Con
 		os.MkdirAll(dir, 0700)
 	}
 
-	if vv, ok := config.Setting["file"].(string); ok && vv != "" {
+	if vv, ok := inst.Setting["file"].(string); ok && vv != "" {
 		setting.Store = vv
 	}
-	if vv, ok := config.Setting["store"].(string); ok && vv != "" {
+	if vv, ok := inst.Setting["store"].(string); ok && vv != "" {
 		setting.Store = vv
 	}
 
 	return &buntdbConnect{
-		name: name, config: config, setting: setting,
+		instance: inst, setting: setting,
 	}, nil
 }
 
