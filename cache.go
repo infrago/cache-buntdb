@@ -165,7 +165,7 @@ func (this *buntdbConnect) Delete(key string) error {
 	})
 }
 
-func (this *buntdbConnect) Serial(key string, start, step int64, expiry time.Duration) (int64, error) {
+func (this *buntdbConnect) Sequence(key string, start, step int64, expiry time.Duration) (int64, error) {
 	value := start
 
 	if data, err := this.Read(key); err == nil {
